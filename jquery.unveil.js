@@ -4,18 +4,27 @@
  * http://luis-almeida.github.com/unveil
  *
  * Licensed under the MIT license.
- * Copyright 2013 Luís Almeida
- * https://github.com/luis-almeida
+ * Copyright 2013 Luís Almeida (https://github.com/luis-almeida)
+ *
+ * Forked and extended with mobile feature:
+ * https://github.com/dimitri-koenig/unveil
  */
 
 ;(function($) {
 
   $.fn.unveil = function(threshold, callback) {
+    var isMobile = navigator.userAgent.match(/Android/i)
+      || navigator.userAgent.match(/BlackBerry/i)
+      || navigator.userAgent.match(/IEMobile/i)
+      || navigator.userAgent.match(/Opera Mini/i)
+      || navigator.userAgent.match(/iPad/i)
+      || navigator.userAgent.match(/iPhone|iPod/i);
 
     var $w = $(window),
         th = threshold || 0,
         retina = window.devicePixelRatio > 1,
-        attrib = retina? "data-src-retina" : "data-src",
+        attrib = retina ? "data-src-retina" : "data-src",
+        attrib = isMobile ? attrib + '-mobile' : attrib,
         images = this,
         loaded;
 
